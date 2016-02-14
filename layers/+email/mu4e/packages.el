@@ -12,9 +12,12 @@
 (setq mu4e-packages
       '(
         (mu4e :skip-install t)
-        mu4e-maildirs-extension
-        org
         ))
+
+;; If mu4e-use-maildirs-extension is non-nil, add it to the list of packages to
+;; install.
+(if mu4e-use-maildirs-extension
+    (add-to-list 'mu4e-packages 'mu4e-maildirs-extension))
 
 (defun mu4e/init-mu4e ()
   (use-package mu4e
@@ -47,12 +50,13 @@
         (add-hook 'message-sent-hook 'mu4e/mail-account-reset)))))
 
 (defun mu4e/init-mu4e-maildirs-extension ()
-  (use-package mu4e-maildirs-extension
-    :defer t
-    :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load))))
+  "If mu4e-use-maildirs-extension is non-nil, set
+mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
+  (if mu4e-use-maildirs-extension
+      (use-package mu4e-maildirs-extension
+        :defer t
+        :init (with-eval-after-load 'mu4e (mu4e-maildirs-extension-load)))))
 
 (defun mu4e/post-init-org ()
   ;; load org-mu4e when org is actually loaded
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
-
-

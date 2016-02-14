@@ -15,5 +15,8 @@
 (defvar mu4e-account-alist nil
   "Account alist for custom multi-account compose.")
 
+(defvar mu4e-use-maildirs-extension nil
+  "Use mu4e-maildirs-extension package if value is non-nil.")
+
 (when mu4e-installation-path
   (push mu4e-installation-path load-path))
