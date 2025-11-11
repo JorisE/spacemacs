@@ -232,6 +232,10 @@ auto-save the file in-place, `cache' to auto-save the file to another
 file stored in the cache directory and `nil' to disable auto-saving.
 Default value is `cache'.")
 
+(defvar dotspacemacs-auto-save-on-focus-out nil
+  "If non-nil, save all file-visiting buffers when Emacs loses focus.
+Default value is `nil'.")
+
 (defvar dotspacemacs-enable-paste-transient-state nil
   "If non nil the paste transient-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")
@@ -675,6 +679,9 @@ error recovery."
     (lambda (x) (member x '(original cache nil)))
     'dotspacemacs-auto-save-file-location (concat "is one of \'original, "
                                                   "\'cache or nil"))
+   (spacemacs//test-var
+    (lambda (x) (or (null x) (eq x t)))
+    'dotspacemacs-auto-save-on-focus-out "is either t or nil")
    (spacemacs//test-var
     (lambda (x) (member x '(all any current nil)))
     'dotspacemacs-highlight-delimiters "is one of \'all, \'any, \'current or nil")
