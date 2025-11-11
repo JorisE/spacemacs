@@ -182,6 +182,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   (_ (setq auto-save-default nil
            auto-save-list-file-prefix nil)))
 
+;; Auto-save on focus out
+(when dotspacemacs-auto-save-on-focus-out
+  (add-hook 'focus-out-hook (lambda () (save-some-buffers t))))
+
 ;; remove annoying ellipsis when printing sexp in message buffer
 (setq eval-expression-print-length nil
       eval-expression-print-level nil)
